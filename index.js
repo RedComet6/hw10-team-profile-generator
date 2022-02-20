@@ -4,7 +4,20 @@ const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 
-function askQuestions() {
+function askRole() {
+    const question = [
+        {
+            name: "role",
+            type: "list",
+            choices: ["Manager", "Engineer", "Intern", "Exit"],
+            message: "Which role would you like to add?",
+        },
+    ];
+
+    return inquirer.prompt(question);
+}
+
+function askCommon() {
     //array of standard questions for all jobs
     const questions = [
         {
@@ -38,3 +51,16 @@ const test = new Employee("Aidan", "6", "asun", "Employee");
 const manager = new Manager("Maddy", "7", "mglight", "Manager", "66");
 console.log(test);
 console.log(manager);
+
+function init() {
+    askRole().then((answer) => {
+        if (answer.role === "Exit") {
+            console.log("EXITED");
+            process.exit();
+        } else {
+            console.log(answer);
+        }
+    });
+}
+
+init();
