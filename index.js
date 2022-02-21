@@ -77,16 +77,13 @@ async function init() {
             askCommon()
                 .then((answers) => {
                     if (answers.role === "Finish") {
-                        console.log("FINISHED");
                         console.log(`Employee array: ${employeeArray}`);
                         userFinish = true;
-                        resolve("Finished adding Employees, time to make HTML");
-                        // RUN HTML GENERATOR HERE
-                        // process.exit();
+                        resolve("\nFinished adding Employees, generating HTML\n");
                     } else if (answers.role === "Manager") {
                         newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
-                        employeeArray.push(JSON.stringify(newEmployee));
-                        resolve("added an employee");
+                        employeeArray.push(newEmployee);
+                        resolve("\nAn employee was added.\n");
                     }
                 })
                 .catch((err) => console.error("There was an error", err));
@@ -96,33 +93,54 @@ async function init() {
         console.log(result);
     }
 
-    writeToFile("./dist/index.html", generateHTML());
+    let cardSection = generateCards(employeeArray);
+    writeToFile("./dist/index.html", generateHTML(cardSection));
 }
 
-function generateCard(employees) {}
+function generateCards(employees) {
+    let cardHTML = "";
+    employees.forEach((employee) => {
+        cardHTML += `<div>
+        <div>
+            <h3>${employee.name}</h3>
+        </div>
+        <div>
+            <h4>${employee.role}</h4>
+        </div>
+        <ul>
+            <li>${employee.id}</li>
+            <li>${employee.email}</li>
+            <li>Unique</li>
+        </ul>
+    </div>`;
+    });
 
-function generateHTML() {
+    return cardHTML;
+}
+
+function generateHTML(cards) {
     return `<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Team Profile Generator</title>
-</head>
-
-<body>
-    <header class="navbar navbar-dark bg-dark justify-content-center align-items-center">
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>Team Profile Generator</title>
+    </head>
+    
+    <body>
+        <header class="navbar navbar-dark bg-dark justify-content-center align-items-center">
             <h1>My Team:</h1>
-    </header>
-    <!-- <div class="row">
-    </div> -->
-</body>
-
-</html>`;
+        </header>
+        <div class="row">
+            ${cards}
+        </div>
+    </body>
+    
+    </html>`;
 }
 
 function writeToFile(fileName, data) {
