@@ -4,19 +4,6 @@ const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 
-// function askRole() {
-//     const question = [
-//         {
-//             name: "role",
-//             type: "list",
-//             choices: ["Manager", "Engineer", "Intern", "Finish"],
-//             message: "Which role would you like to add?",
-//         },
-//     ];
-
-//     return inquirer.prompt(question);
-// }
-
 function askCommon() {
     //array of standard questions for all jobs
     const questions = [
@@ -108,14 +95,38 @@ async function init() {
         const result = await promise;
         console.log(result);
     }
+
+    writeToFile("./dist/index.html", generateHTML());
+}
+
+function generateCard(employees) {}
+
+function generateHTML() {
+    return `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Team Profile Generator</title>
+</head>
+
+<body>
+    <header class="navbar navbar-dark bg-dark justify-content-center align-items-center">
+            <h1>My Team:</h1>
+    </header>
+    <!-- <div class="row">
+    </div> -->
+</body>
+
+</html>`;
+}
+
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => (err ? console.error(err) : console.log("Success!")));
 }
 
 init();
-
-// inquirer.prompt(questions).then((answers) => {
-//     writeToFile("./dist/index.html", generateHTML(answers));
-// });
-
-// function writeToFile(fileName, data) {
-//     fs.writeFile(fileName, data, (err) => (err ? console.error(err) : console.log("Success!")));
-// }
