@@ -3,6 +3,7 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
 
 function askCommon() {
     //array of standard questions for all jobs
@@ -37,6 +38,12 @@ function askCommon() {
             when: (answers) => answers.role === "Manager",
             message: "Enter this manager's office number:",
         },
+        {
+            name: "githubUser",
+            type: "input",
+            when: (answers) => answers.role === "Engineer",
+            message: "Enter this engineer's GitHub username:",
+        },
     ];
 
     return inquirer.prompt(questions);
@@ -49,41 +56,25 @@ async function init() {
     let userFinish = false;
     let newEmployee;
 
-    // for (let tally = 0; tally < maxEmployees; tally++) {
-    //     const promise = new Promise((resolve, reject) => {
-    //         askCommon()
-    //             .then((answers) => {
-    //                 if (answers.role === "Finish") {
-    //                     console.log("FINISHED");
-    //                     console.log(`Employee array: ${employeeArray}`);
-    //                     resolve("Finished adding Employees, time to make HTML");
-    //                     // RUN HTML GENERATOR HERE
-    //                     // process.exit();
-    //                 } else if (answers.role === "Manager") {
-    //                     newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
-    //                     employeeArray.push(JSON.stringify(newEmployee));
-    //                     resolve("added an employee");
-    //                 }
-    //             })
-    //             .catch((err) => console.error("There was an error", err));
-    //     });
-
-    //     const result = await promise;
-    //     console.log(result);
-    // }
-
     while (userFinish !== true && tallyEmployees < maxEmployees) {
         const promise = new Promise((resolve, reject) => {
             askCommon()
                 .then((answers) => {
-                    if (answers.role === "Finish") {
-                        console.log(`Employee array: ${employeeArray}`);
-                        userFinish = true;
-                        resolve("\nFinished adding Employees, generating HTML\n");
-                    } else if (answers.role === "Manager") {
-                        newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
-                        employeeArray.push(newEmployee);
-                        resolve("\nAn employee was added.\n");
+                    switch (answers.role) {
+                        case "Finish":
+                            console.log(`Employee array: ${employeeArray}`);
+                            userFinish = true;
+                            resolve("\nFinished adding Employees, generating HTML\n");
+                            break;
+                        case "Manager":
+                            newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
+                            employeeArray.push(newEmployee);
+                            resolve("\nA manager was added.\n");
+                            break;
+                        case "Engineer":
+                            newEmployee = new Engineer(answers.name, answers.id, answers.email, answers.role, answers.githubUser);
+                            employeeArray.push(newEmployee);
+                            resolve("\nAn engineer was added.\n");
                     }
                 })
                 .catch((err) => console.error("There was an error", err));
@@ -144,7 +135,7 @@ function generateHTML(cards) {
 }
 
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, (err) => (err ? console.error(err) : console.log("Success!")));
+    fs.writeFile(fileName, data, (err) => (err ? console.error(err) : console.log("HTML file generated!")));
 }
 
 init();
