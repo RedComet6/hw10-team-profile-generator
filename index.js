@@ -4,6 +4,7 @@ const fs = require("fs");
 const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 
 function askCommon() {
     //array of standard questions for all jobs
@@ -44,6 +45,12 @@ function askCommon() {
             when: (answers) => answers.role === "Engineer",
             message: "Enter this engineer's GitHub username:",
         },
+        {
+            name: "school",
+            type: "input",
+            when: (answers) => answers.role === "Intern",
+            message: "Enter the school this intern attends:",
+        },
     ];
 
     return inquirer.prompt(questions);
@@ -75,6 +82,12 @@ async function init() {
                             newEmployee = new Engineer(answers.name, answers.id, answers.email, answers.role, answers.githubUser);
                             employeeArray.push(newEmployee);
                             resolve("\nAn engineer was added.\n");
+                            break;
+                        case "Intern":
+                            newEmployee = new Intern(answers.name, answers.id, answers.email, answers.role, answers.school);
+                            employeeArray.push(newEmployee);
+                            resolve("\nAn intern was added.\n");
+                            break;
                     }
                 })
                 .catch((err) => console.error("There was an error", err));
