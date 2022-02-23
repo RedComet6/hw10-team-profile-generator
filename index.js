@@ -109,7 +109,7 @@ function generateCards(employees) {
         if (employee.officeNum) {
             uniqueInfo = employee.officeNum;
         } else if (employee.githubUser) {
-            uniqueInfo = employee.githubUser;
+            uniqueInfo = `<a href="https://github.com/${employee.githubUser}" target="_blank">${employee.githubUser}</a>`;
         } else if (employee.school) {
             uniqueInfo = employee.school;
         }
@@ -123,7 +123,7 @@ function generateCards(employees) {
         </div>
         <ul>
             <li>${employee.id}</li>
-            <li>${employee.email}</li>
+            <li><a href="mailto:${employee.email}">${employee.email}</a></li>
             <li>${uniqueInfo}</li>
         </ul>
     </div>`;
