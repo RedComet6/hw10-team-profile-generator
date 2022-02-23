@@ -102,8 +102,18 @@ async function init() {
 }
 
 function generateCards(employees) {
+    let uniqueInfo = "";
     let cardHTML = "";
+
     employees.forEach((employee) => {
+        if (employee.officeNum) {
+            uniqueInfo = employee.officeNum;
+        } else if (employee.githubUser) {
+            uniqueInfo = employee.githubUser;
+        } else if (employee.school) {
+            uniqueInfo = employee.school;
+        }
+
         cardHTML += `<div>
         <div>
             <h3>${employee.name}</h3>
@@ -114,7 +124,7 @@ function generateCards(employees) {
         <ul>
             <li>${employee.id}</li>
             <li>${employee.email}</li>
-            <li>Unique</li>
+            <li>${uniqueInfo}</li>
         </ul>
     </div>`;
     });
