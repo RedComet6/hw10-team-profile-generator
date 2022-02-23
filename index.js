@@ -107,24 +107,28 @@ function generateCards(employees) {
 
     employees.forEach((employee) => {
         if (employee.officeNum) {
-            uniqueInfo = employee.officeNum;
+            uniqueInfo = `Office Number: ${employee.officeNum}`;
         } else if (employee.githubUser) {
-            uniqueInfo = `<a href="https://github.com/${employee.githubUser}" target="_blank">${employee.githubUser}</a>`;
+            uniqueInfo = `Github: <a href="https://github.com/${employee.githubUser}" target="_blank">${employee.githubUser}</a>`;
         } else if (employee.school) {
-            uniqueInfo = employee.school;
+            uniqueInfo = `School: ${employee.school}`;
         }
 
-        cardHTML += `<div>
-        <div>
-            <h3>${employee.name}</h3>
+        cardHTML += `<div class="border border-success card m-5 rounded">
+        <div class="bg-success p-3 text-white">
+            <div>
+                <h3>${employee.name}</h3>
+            </div>
+            <div>
+                <h4>${employee.role}</h4>
+            </div>
         </div>
-        <div>
-            <h4>${employee.role}</h4>
-        </div>
-        <ul>
-            <li>${employee.id}</li>
-            <li><a href="mailto:${employee.email}">${employee.email}</a></li>
-            <li>${uniqueInfo}</li>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${employee.id}</li>
+            <li class="list-group-item">Email:
+                <a href="mailto:${employee.email}">${employee.email}</a>
+            </li>
+            <li class="list-group-item">${uniqueInfo}</li>
         </ul>
     </div>`;
     });
@@ -146,14 +150,14 @@ function generateHTML(cards) {
     </head>
     
     <body>
-        <header class="navbar navbar-dark bg-dark justify-content-center align-items-center">
-            <h1>My Team:</h1>
-        </header>
-        <div class="row">
-            ${cards}
-        </div>
+    <header class="navbar bg-info text-white justify-content-center align-items-center">
+        <h1>My Team:</h1>
+    </header>
+    <div class="row justify-content-center">
+        ${cards}
+    </div>
     </body>
-    
+            
     </html>`;
 }
 
