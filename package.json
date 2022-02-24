@@ -8,7 +8,7 @@
         "employee": "jest ./test/Employee.test.js",
         "engineer": "jest ./test/Engineer.test.js",
         "intern": "jest ./test/Intern.test.js",
-        "Manager": "jest ./test/Manager.test.js"
+        "manager": "jest ./test/Manager.test.js"
     },
     "repository": {
         "type": "git",
