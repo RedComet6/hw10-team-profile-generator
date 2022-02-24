@@ -1,23 +1,27 @@
 {
-  "name": "hw10-team-profile-generator",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RedComet6/hw10-team-profile-generator.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/RedComet6/hw10-team-profile-generator/issues"
-  },
-  "homepage": "https://github.com/RedComet6/hw10-team-profile-generator#readme",
-  "dependencies": {
-    "inquirer": "^8.2.0",
-    "jest": "^27.5.1"
-  }
+    "name": "hw10-team-profile-generator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "employee": "jest ./test/Employee.test.js",
+        "engineer": "jest ./test/Engineer.test.js",
+        "intern": "jest ./test/Intern.test.js",
+        "Manager": "jest ./test/Manager.test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RedComet6/hw10-team-profile-generator.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/RedComet6/hw10-team-profile-generator/issues"
+    },
+    "homepage": "https://github.com/RedComet6/hw10-team-profile-generator#readme",
+    "dependencies": {
+        "inquirer": "^8.2.0",
+        "jest": "^27.5.1"
+    }
 }
