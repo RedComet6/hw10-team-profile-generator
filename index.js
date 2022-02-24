@@ -6,8 +6,9 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+// creates questions and returns inquirer prompt
 function askCommon() {
-    //array of standard questions for all jobs
+    //array of questions to be prompted to user
     const questions = [
         {
             name: "role",
@@ -56,33 +57,42 @@ function askCommon() {
     return inquirer.prompt(questions);
 }
 
+// initialize app to ask questions, run loop, generate cards and html
 async function init() {
+    // initialize variables
     const employeeArray = [];
     const maxEmployees = 5;
     let tallyEmployees = 0;
     let userFinish = false;
     let newEmployee;
 
+    // while loop iterates code chunk until user selects "finish" or the maximum number of employees have been added
     while (userFinish !== true && tallyEmployees < maxEmployees) {
         const promise = new Promise((resolve, reject) => {
+            // inquirer prompts user with questions array from above
             askCommon()
                 .then((answers) => {
+                    // switch to determine what to do depending on user input
                     switch (answers.role) {
+                        // if user chooses Finish, end loop
                         case "Finish":
                             console.log(`Employee array: ${employeeArray}`);
                             userFinish = true;
                             resolve("\nFinished adding Employees, generating HTML\n");
                             break;
+                        // if user chooses manager, create new manager and push to employee array
                         case "Manager":
                             newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
                             employeeArray.push(newEmployee);
                             resolve("\nA manager was added.\n");
                             break;
+                        // if user chooses engineer, create new engineer and push to employee array
                         case "Engineer":
                             newEmployee = new Engineer(answers.name, answers.id, answers.email, answers.role, answers.githubUser);
                             employeeArray.push(newEmployee);
                             resolve("\nAn engineer was added.\n");
                             break;
+                        // if user chooses intern, create new intern and push to employee array
                         case "Intern":
                             newEmployee = new Intern(answers.name, answers.id, answers.email, answers.role, answers.school);
                             employeeArray.push(newEmployee);
@@ -90,22 +100,31 @@ async function init() {
                             break;
                     }
                 })
+                // catch and display errors
                 .catch((err) => console.error("There was an error", err));
         });
+        // increment employee count, exits the loop if max number is reached
         tallyEmployees++;
         const result = await promise;
         console.log(result);
     }
 
+    // create card section html using the employee array
     let cardSection = generateCards(employeeArray);
+
+    // write html file using card section variable
     writeToFile("./dist/index.html", generateHTML(cardSection));
 }
 
+// generates card html for each employee added by user
 function generateCards(employees) {
+    // initialize variables
     let uniqueInfo = "";
     let cardHTML = "";
 
+    // loops through employee array and creates card html for each employee
     employees.forEach((employee) => {
+        // sets html for the unique question associated with each role
         if (employee.officeNum) {
             uniqueInfo = `Office Number: ${employee.officeNum}`;
         } else if (employee.githubUser) {
@@ -114,6 +133,7 @@ function generateCards(employees) {
             uniqueInfo = `School: ${employee.school}`;
         }
 
+        // creates and appends new cards as employees are looped through
         cardHTML += `<div class="border border-success card m-5 rounded">
         <div class="bg-success p-3 text-white">
             <div>
@@ -136,6 +156,7 @@ function generateCards(employees) {
     return cardHTML;
 }
 
+// creates html to be saved to new file
 function generateHTML(cards) {
     return `<!DOCTYPE html>
     <html lang="en">
@@ -161,8 +182,10 @@ function generateHTML(cards) {
     </html>`;
 }
 
+// writes file to system
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) => (err ? console.error(err) : console.log("HTML file generated!")));
 }
 
+// runs app
 init();
