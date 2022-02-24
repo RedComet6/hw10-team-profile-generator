@@ -17,24 +17,28 @@ describe("Employee", () => {
         it("should return the employee's name when getName() is called", () => {
             const employee = new Employee("Max", 1, "mpalmer@gmail.com", "Employee");
 
+            // verify method returns correct value
             expect(employee.getName()).toEqual("Max");
         });
 
         it("should return the employee's id when getId() is called", () => {
             const employee = new Employee("Max", 1, "mpalmer@gmail.com", "Employee");
 
+            // verify method returns correct value
             expect(employee.getId()).toEqual(1);
         });
 
         it("should return the employee's email when getEmail() is called", () => {
             const employee = new Employee("Max", 1, "mpalmer@gmail.com", "Employee");
 
+            // verify method returns correct value
             expect(employee.getEmail()).toEqual("mpalmer@gmail.com");
         });
 
         it("should return the word Employee as a string when getRole() is called", () => {
             const employee = new Employee("Max", 1, "mpalmer@gmail.com", "Employee");
 
+            // verify method returns correct value
             expect(employee.getRole()).toEqual("Employee");
         });
     });
