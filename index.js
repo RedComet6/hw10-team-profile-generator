@@ -68,45 +68,42 @@ async function init() {
 
     // while loop iterates code chunk until user selects "finish" or the maximum number of employees have been added
     while (userFinish !== true && tallyEmployees < maxEmployees) {
-        const promise = new Promise((resolve, reject) => {
-            // inquirer prompts user with questions array from above
-            askCommon()
-                .then((answers) => {
-                    // switch to determine what to do depending on user input
-                    switch (answers.role) {
-                        // if user chooses Finish, end loop
-                        case "Finish":
-                            console.log(`Employee array: ${employeeArray}`);
-                            userFinish = true;
-                            resolve("\nFinished adding Employees, generating HTML\n");
-                            break;
-                        // if user chooses manager, create new manager and push to employee array
-                        case "Manager":
-                            newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
-                            employeeArray.push(newEmployee);
-                            resolve("\nA manager was added.\n");
-                            break;
-                        // if user chooses engineer, create new engineer and push to employee array
-                        case "Engineer":
-                            newEmployee = new Engineer(answers.name, answers.id, answers.email, answers.role, answers.githubUser);
-                            employeeArray.push(newEmployee);
-                            resolve("\nAn engineer was added.\n");
-                            break;
-                        // if user chooses intern, create new intern and push to employee array
-                        case "Intern":
-                            newEmployee = new Intern(answers.name, answers.id, answers.email, answers.role, answers.school);
-                            employeeArray.push(newEmployee);
-                            resolve("\nAn intern was added.\n");
-                            break;
-                    }
-                })
-                // catch and display errors
-                .catch((err) => console.error("There was an error", err));
-        });
+        // inquirer prompts user with questions array from above
+        await askCommon()
+            .then((answers) => {
+                // switch to determine what to do depending on user input
+                switch (answers.role) {
+                    // if user chooses Finish, end loop
+                    case "Finish":
+                        console.log(`Employee array: ${employeeArray}`);
+                        userFinish = true;
+                        console.log("\nFinished adding Employees, generating HTML\n");
+                        break;
+                    // if user chooses manager, create new manager and push to employee array
+                    case "Manager":
+                        newEmployee = new Manager(answers.name, answers.id, answers.email, answers.role, answers.officeNum);
+                        employeeArray.push(newEmployee);
+                        console.log("\nA manager was added.\n");
+                        break;
+                    // if user chooses engineer, create new engineer and push to employee array
+                    case "Engineer":
+                        newEmployee = new Engineer(answers.name, answers.id, answers.email, answers.role, answers.githubUser);
+                        employeeArray.push(newEmployee);
+                        console.log("\nAn engineer was added.\n");
+                        break;
+                    // if user chooses intern, create new intern and push to employee array
+                    case "Intern":
+                        newEmployee = new Intern(answers.name, answers.id, answers.email, answers.role, answers.school);
+                        employeeArray.push(newEmployee);
+                        console.log("\nAn intern was added.\n");
+                        break;
+                }
+            })
+            // catch and display errors
+            .catch((err) => console.error("There was an error", err));
+
         // increment employee count, exits the loop if max number is reached
         tallyEmployees++;
-        const result = await promise;
-        console.log(result);
     }
 
     // create card section html using the employee array
