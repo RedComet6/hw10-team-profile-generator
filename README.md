@@ -33,7 +33,7 @@ To test this application, use the test files by typing "npm test" in the command
 
 ## Screenshot
 
-![](./img/aidan-chamberlain-hw9-screenshot.png)
+![](./img/hw10-team-profile-generator-aidan-chamberlain.png)
 
 ## Links to Application
 
