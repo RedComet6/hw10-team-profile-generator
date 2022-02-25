@@ -37,7 +37,7 @@ To test this application, use the test files by typing "npm test" in the command
 
 ## Links to Application
 
--   Here is the demo video on Google Drive: [https://drive.google.com/file/d/129D7NfPRfFvrmcgBh1HNZsL_cVAHM9tz/view?usp=sharing](https://drive.google.com/file/d/129D7NfPRfFvrmcgBh1HNZsL_cVAHM9tz/view?usp=sharing)
+-   Here is the demo video on Google Drive: [https://drive.google.com/file/d/1YlednNx482R9vpZ7to2l6XVZsvAWSiZ0/view?usp=sharing](https://drive.google.com/file/d/1YlednNx482R9vpZ7to2l6XVZsvAWSiZ0/view?usp=sharing)
 -   Here is the repo: [https://github.com/RedComet6/hw10-team-profile-generator](https://github.com/RedComet6/hw10-team-profile-generator)
 -   Here is the pages: [https://redcomet6.github.io/hw10-team-profile-generator/](https://redcomet6.github.io/hw10-team-profile-generator/)
 
