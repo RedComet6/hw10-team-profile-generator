@@ -13,7 +13,7 @@
 
 ## Description
 
-This is an application that accepts information about employees on a team and then generates an HTML page that displays a summary of the information about each person. The user is prompted to choose an employee role. If Manager is chosen, the user is prompted to provide name, ID, email, and office number. If Engineer is chosen, the user is prompted to provide name, ID, email, and GitHub username. If Intern is chose, the user is prompted to provide name, ID, email, and school. The displayed emails will automaticall open the default mail application and create an email draft with the clicked email in the "TO" section. The GitHub usernames for the Engineer role are links to the respective GitHub user. When the user chooses to finish, or the maximium number of employees is reached, the application generates the HTML file and saves it in the "dist" folder.
+This is an application that accepts information about employees on a team and then generates an HTML page that displays a summary of the information about each person. The user is prompted to choose an employee role. If Manager is chosen, the user is prompted to provide name, ID, email, and office number. If Engineer is chosen, the user is prompted to provide name, ID, email, and GitHub username. If Intern is chosen, the user is prompted to provide name, ID, email, and school. The displayed emails will automaticall open the default mail application and create an email draft with the clicked email in the "TO" section. The GitHub usernames for the Engineer role are links to the respective GitHub user. When the user chooses to finish, or the maximium number of employees is reached, the application generates the HTML file and saves it in the "dist" folder.
 
 ## Installation
 

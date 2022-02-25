@@ -77,7 +77,7 @@ async function init() {
                     case "Finish":
                         console.log(`Employee array: ${employeeArray}`);
                         userFinish = true;
-                        console.log("\nFinished adding Employees, generating HTML\n");
+                        console.log("\nFinished adding employees, generating HTML\n");
                         break;
                     // if user chooses manager, create new manager and push to employee array
                     case "Manager":
